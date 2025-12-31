@@ -65,21 +65,11 @@ class IntegratedNavigation(Node):
         self.pub_cmd = self.create_publisher(Twist, '/cmd_vel', 10)
         self.pub_path = self.create_publisher(Path, '/planned_path', 10)
 
-        self.sub_map = self.create_subscription(
-            OccupancyGrid, 
-            '/map', 
-            self.map_callback, 
-            map_qos_profile)
+        self.sub_map = self.create_subscription(OccupancyGrid, '/map', self.map_callback, map_qos_profile)
         self.sub_pose = self.create_subscription(PoseWithCovarianceStamped, '/amcl_pose', self.pose_callback, 10)
         self.sub_goal = self.create_subscription(PoseStamped, '/goal_pose', self.goal_callback, 10)
-        self.scan_subscription = self.create_subscription(
-            LaserScan, 
-            "/scan", 
-            self.scan_callback, 
-            qos_profile
-        )
+        self.scan_subscription = self.create_subscription(LaserScan, "/scan", self.scan_callback, qos_profile)
         self.img_subscriber = self.create_subscription(CompressedImage, '/image_raw/compressed', self.image_callback, qos_profile)
-
 
         self.timer = self.create_timer(0.1, self.control_loop)
         self.get_logger().info("Let's Run!")
