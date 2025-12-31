@@ -56,11 +56,7 @@ class IntegratedNavigation(Node):
 
         self.safety_margin = 5
 
-        self.sub_map = self.create_subscription(
-            OccupancyGrid, 
-            '/map', 
-            self.map_callback, 
-            map_qos_profile)
+        self.sub_map = self.create_subscription(OccupancyGrid, '/map', self.map_callback, map_qos_profile)
         self.sub_pose = self.create_subscription(PoseWithCovarianceStamped, '/amcl_pose', self.pose_callback, 10)
         self.sub_goal = self.create_subscription(PoseStamped, '/goal_pose', self.goal_callback, 10)
 
